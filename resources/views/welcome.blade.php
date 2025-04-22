@@ -1,121 +1,467 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Done - Platform pintar untuk menyelesaikan tugas secara efisien dan kolaboratif.">
-    <meta name="keywords" content="Done, tugas, kolaborasi, efisiensi, produktivitas">
-    <meta name="author" content="Tim Done">
-    <title>Done - Platform Penyelesaian Tugas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        // Mode gelap berdasarkan preferensi pengguna
-        if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+@section('content')
+    <main class="main">
 
-        function toggleTheme() {
-            const html = document.documentElement;
-            html.classList.toggle('dark');
-            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-            console.log(`Tema berubah ke ${localStorage.theme}`);
-        }
-    </script>
-</head>
+        <!-- Hero Section -->
+        <section id="hero" class="hero section">
 
-<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans antialiased">
-
-    <!-- Header -->
-    <header class="w-full border-b dark:border-gray-700">
-        @if (Route::has('login'))
-        <nav class="container mx-auto flex items-center justify-between px-6 py-4">
-            <a class="text-2xl font-bold text-blue-600 dark:text-blue-400" href="#">Done</a>
-            <ul class="flex space-x-6 font-medium">
-                <li><a href="#tentang" class="hover:text-blue-500 transition">Tentang</a></li>
-                <li><a href="#fitur" class="hover:text-blue-500 transition">Fitur</a></li>
-                <li><a href="#tim" class="hover:text-blue-500 transition">Tim</a></li>
-                <li><a href="{{ route('login') }}" class="hover:text-blue-500 transition">Masuk</a></li>
-            </ul>
-        </nav>
-        @endif
-    </header>
-
-    <main>
-
-        <!-- Hero -->
-        <section class="h-screen flex flex-col justify-center items-center text-center text-white px-4"
-            style="background-image: url('https://source.unsplash.com/1600x900/?workspace,team'); background-size: cover; background-position: center;">
-            <h1 class="text-5xl font-bold mb-4 bg-black bg-opacity-30 px-4 py-2 rounded-lg">Selamat Datang di <span class="text-blue-400">Done</span></h1>
-            <p class="text-xl max-w-2xl mb-6 bg-black bg-opacity-30 px-4 py-2 rounded-lg">Sederhanakan tugas Anda dengan alat profesional dan kolaboratif kami.</p>
-            <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#tentang" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-white transition">Pelajari Lebih Lanjut</a>
-                <a href="{{ route('login') }}" class="bg-green-500 hover:bg-green-600 px-6 py-3 rounded-lg text-white transition">Masuk</a>
-            </div>
-        </section>
-
-        <!-- Tentang -->
-        <section id="tentang" class="py-20 container mx-auto px-4">
-            <div class="text-center max-w-3xl mx-auto">
-                <h2 class="text-4xl font-bold mb-4">Tentang Kami</h2>
-                <p class="text-lg mb-12 text-gray-600 dark:text-gray-300">Kami menyediakan platform terbaik untuk membantu Anda mengelola tugas secara efisien dengan teknologi terkini dan desain yang ramah pengguna.</p>
-            </div>
-
-            <div class="flex overflow-x-auto gap-6 snap-x snap-mandatory px-4">
-                <div class="snap-center shrink-0 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-                    <img src="https://source.unsplash.com/random/300x200?technology" alt="Fitur 1" class="mb-4 rounded-lg w-full">
-                    <h3 class="text-xl font-semibold mb-2 dark:text-white">Fitur 1</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Deskripsi fitur pertama yang sangat berguna dan kuat.</p>
-                </div>
-                <div class="snap-center shrink-0 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-                    <img src="https://source.unsplash.com/random/300x200?workspace" alt="Fitur 2" class="mb-4 rounded-lg w-full">
-                    <h3 class="text-xl font-semibold mb-2 dark:text-white">Fitur 2</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Deskripsi fitur kedua yang mudah digunakan dan intuitif.</p>
-                </div>
-                <div class="snap-center shrink-0 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-                    <img src="https://source.unsplash.com/random/300x200?productivity" alt="Fitur 3" class="mb-4 rounded-lg w-full">
-                    <h3 class="text-xl font-semibold mb-2 dark:text-white">Fitur 3</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Deskripsi fitur ketiga yang cepat, andal, dan aman.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tim -->
-        <section id="tim" class="py-20 bg-gray-100 dark:bg-gray-800">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-4xl font-bold mb-12">Tim Kami</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white dark:bg-gray-700 rounded-xl shadow-md p-6">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Berli" class="mx-auto mb-4 rounded-full w-24 h-24 object-cover">
-                        <p class="text-lg font-semibold dark:text-white">Berli Feriz Adam</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">Co-founder & Developer</p>
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center"
+                        data-aos="fade-up">
+                        <h1>Elegant and creative solutions</h1>
+                        <p>We are team of talented designers making websites with Bootstrap</p>
+                        <div class="d-flex">
+                            <a href="#about" class="btn-get-started">Get Started</a>
+                            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                                class="glightbox btn-watch-video d-flex align-items-center"><i
+                                    class="bi bi-play-circle"></i><span>Watch Video</span></a>
+                        </div>
                     </div>
-                    <div class="bg-white dark:bg-gray-700 rounded-xl shadow-md p-6">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Yustika" class="mx-auto mb-4 rounded-full w-24 h-24 object-cover">
-                        <p class="text-lg font-semibold dark:text-white">Yustika Dewi Amelia</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">Desainer & Ahli UI</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-700 rounded-xl shadow-md p-6">
-                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Rezfa" class="mx-auto mb-4 rounded-full w-24 h-24 object-cover">
-                        <p class="text-lg font-semibold dark:text-white">Rezfa Alhaz</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">Manajer Proyek</p>
+                    <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
+                        <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
                     </div>
                 </div>
             </div>
+
+        </section><!-- /Hero Section -->
+
+        <!-- Featured Services Section -->
+        <section id="featured-services" class="featured-services section">
+
+            <div class="container">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-item position-relative">
+                            <div class="icon"><i class="bi bi-activity icon"></i></div>
+                            <h4><a href="" class="stretched-link">Lorem Ipsum</a></h4>
+                            <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-item position-relative">
+                            <div class="icon"><i class="bi bi-bounding-box-circles icon"></i></div>
+                            <h4><a href="" class="stretched-link">Sed ut perspici</a></h4>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-item position-relative">
+                            <div class="icon"><i class="bi bi-calendar4-week icon"></i></div>
+                            <h4><a href="" class="stretched-link">Magni Dolores</a></h4>
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                </div>
+
+            </div>
+
+        </section><!-- /Featured Services Section -->
+
+        <!-- About Section -->
+        <section id="about" class="about section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <span>About Us<br></span>
+                <h2>About</h2>
+                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-4">
+                    <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
+                        <img src="assets/img/about.png" class="img-fluid" alt="">
+                        <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                            class="glightbox pulsating-play-btn"></a>
+                    </div>
+                    <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
+                        <p class="fst-italic">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore
+                            magna aliqua.
+                        </p>
+                        <ul>
+                            <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
+                                    consequat.</span></li>
+                            <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in
+                                    voluptate velit.</span></li>
+                            <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
+                                    consequat. Duis aute irure dolor in reprehenderit in voluptate trideta
+                                    storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
+                        </ul>
+                        <p>
+                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit in voluptate
+                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
         </section>
 
-    </main>
+        <!-- Stats Section -->
+        <section id="stats" class="stats section">
 
-    <!-- Footer -->
-    <footer class="bg-gray-700 dark:bg-gray-900 text-gray-300 py-6 text-center">
-        <p>&copy; 2025 Done. Semua hak dilindungi.</p>
-    </footer>
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-</body>
+                <div class="row gy-4">
 
-</html>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item text-center w-100 h-100">
+                            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
+                                class="purecounter"></span>
+                            <p>Clients</p>
+                        </div>
+                    </div><!-- End Stats Item -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item text-center w-100 h-100">
+                            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
+                                class="purecounter"></span>
+                            <p>Projects</p>
+                        </div>
+                    </div><!-- End Stats Item -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item text-center w-100 h-100">
+                            <span data-purecounter-start="0" data-purecounter-end="1453"
+                                data-purecounter-duration="1" class="purecounter"></span>
+                            <p>Hours Of Support</p>
+                        </div>
+                    </div><!-- End Stats Item -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-item text-center w-100 h-100">
+                            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
+                                class="purecounter"></span>
+                            <p>Workers</p>
+                        </div>
+                    </div><!-- End Stats Item -->
+
+                </div>
+
+            </div>
+
+        </section><!-- /Stats Section -->
+
+        <!-- Services Section -->
+        <section id="services" class="services section light-background">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <span>Services</span>
+                <h2>Services</h2>
+                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-item position-relative">
+                            <div class="icon">
+                                <i class="bi bi-activity"></i>
+                            </div>
+                            <a href="service-details.html" class="stretched-link">
+                                <h3>Nesciunt Mete</h3>
+                            </a>
+                            <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores
+                                iure perferendis tempore et consequatur.</p>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-item position-relative">
+                            <div class="icon">
+                                <i class="bi bi-broadcast"></i>
+                            </div>
+                            <a href="service-details.html" class="stretched-link">
+                                <h3>Eosle Commodi</h3>
+                            </a>
+                            <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum
+                                hic non ut nesciunt dolorem.</p>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-item position-relative">
+                            <div class="icon">
+                                <i class="bi bi-easel"></i>
+                            </div>
+                            <a href="service-details.html" class="stretched-link">
+                                <h3>Ledo Markt</h3>
+                            </a>
+                            <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id
+                                voluptas adipisci eos earum corrupti.</p>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-item position-relative">
+                            <div class="icon">
+                                <i class="bi bi-bounding-box-circles"></i>
+                            </div>
+                            <a href="service-details.html" class="stretched-link">
+                                <h3>Asperiores Commodit</h3>
+                            </a>
+                            <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga
+                                sit provident adipisci neque.</p>
+                            <a href="service-details.html" class="stretched-link"></a>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                        <div class="service-item position-relative">
+                            <div class="icon">
+                                <i class="bi bi-calendar4-week"></i>
+                            </div>
+                            <a href="service-details.html" class="stretched-link">
+                                <h3>Velit Doloremque</h3>
+                            </a>
+                            <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed
+                                animi at autem alias eius labore.</p>
+                            <a href="service-details.html" class="stretched-link"></a>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                        <div class="service-item position-relative">
+                            <div class="icon">
+                                <i class="bi bi-chat-square-text"></i>
+                            </div>
+                            <a href="service-details.html" class="stretched-link">
+                                <h3>Dolori Architecto</h3>
+                            </a>
+                            <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure.
+                                Corrupti recusandae ducimus enim.</p>
+                            <a href="service-details.html" class="stretched-link"></a>
+                        </div>
+                    </div><!-- End Service Item -->
+
+                </div>
+
+            </div>
+
+        </section><!-- /Services Section -->
+
+        <!-- Portfolio Section -->
+
+        <!-- /Portfolio Section -->
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials section light-background">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <span>Testimonials</span>
+                <h2>Testimonials</h2>
+                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+            </div><!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="swiper init-swiper" data-speed="600" data-delay="5000"
+                    data-breakpoints="{ &quot;320&quot;: { &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 40 }, &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 40 } }">
+                    <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "breakpoints": {
+                "320": {
+                  "slidesPerView": 1,
+                  "spaceBetween": 40
+                },
+                "1200": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 20
+                }
+              }
+            }
+          </script>
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-item" "="">
+            <p>
+              <i class=" bi bi-quote quote-icon-left"></i>
+                <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
+                <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                <h3>Saul Goodman</h3>
+                <h4>Ceo &amp; Founder</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                <h3>Sara Wilsson</h3>
+                <h4>Designer</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                <h3>Jena Karlis</h3>
+                <h4>Store Owner</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                <h3>Matt Brandon</h3>
+                <h4>Freelancer</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section><!-- /Testimonials Section -->
+
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section accent-background">
+
+      <div class="container">
+        <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-xl-10">
+            <div class="text-center">
+              <h3>Call To Action</h3>
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <a class="cta-btn" href="#">Call To Action</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Call To Action Section -->
+
+    <!-- Team Section -->
+    <section id="team" class="team section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <span>Section Title</span>
+        <h2>Team</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-5">
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="member">
+              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Walter White</h4>
+                <span>Chief Executive Officer</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="member">
+              <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Sarah Jhonson</h4>
+                <span>Product Manager</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="member">
+              <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>William Anderson</h4>
+                <span>CTO</span>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter-x"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Team Section -->
+
+    <!-- Contact Section -->
+
+  </main>
+
+@endsection
