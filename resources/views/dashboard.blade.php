@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.profile')
 
 @section('content')
 <!-- NAVBAR FIXED DENGAN MENU DI TENGAH -->
@@ -24,10 +24,10 @@
                 <a class="nav-link" href="#">Beranda</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Tugas</a>
+                <a class="nav-link" href="{{ route('tugas.index')}}">Tugas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Diskusi</a>
+                <a class="nav-link" href="{{ route('forums.index')}}">Diskusi</a>
             </li>
         </ul>
 
@@ -39,7 +39,6 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="{{ route('profiles.index') }}">Lihat Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Keluar</a></li>
                 </ul>
             </li>
         </ul>
