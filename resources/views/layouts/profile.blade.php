@@ -8,7 +8,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom Style -->
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -27,10 +29,13 @@
         @yield('content')
     </div>
 
-    <!-- Bootstrap JS (wajib untuk modal dan interaksi lainnya) -->
+    <!-- jQuery, Bootstrap, DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
-    @stack('scripts')
+    <!-- Script dari child view -->
+    @yield('scripts')
 
 </body>
 </html>

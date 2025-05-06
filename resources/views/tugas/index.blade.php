@@ -1,11 +1,13 @@
 @extends('layouts.profile')
 
+@section('title', 'Daftar Tugas')
+
 @section('content')
 <div class="container">
     <h1>Daftar Tugas</h1>
     <a href="{{ route('tugas.create') }}" class="btn btn-primary mb-3">Tambah Tugas</a>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered display" id="tugasTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -16,6 +18,7 @@
                 <th>User</th>
                 <th>Mata Kuliah</th>
                 <th>Created At</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -43,4 +46,12 @@
         </tbody>
     </table>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        $('#tugasTable').DataTable();
+    });
+</script>
 @endsection

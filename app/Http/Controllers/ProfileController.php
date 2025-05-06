@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -10,7 +10,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $profile = Profile::first(); // Ambil data pertama
+        $profile = User::first(); // Ambil data pertama
         return view('profiles.index', compact('profile'));
     }
 

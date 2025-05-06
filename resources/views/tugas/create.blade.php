@@ -30,11 +30,6 @@
         </div>
 
         <div class="form-group">
-            <label>User ID</label>
-            <input type="number" name="user_id" class="form-control" required>
-        </div>
-
-        <div class="form-group">
             <label>Mata Kuliah ID</label>
             <input type="number" name="mata_kuliah_id" class="form-control" required>
         </div>
